@@ -2,7 +2,7 @@
 
     <wz-menu ng-init="menuNavItem = 'overview'"></wz-menu>
 
-    <div layout="row" layout-align="space-between start" class="wz-md-navbar-kbn">
+    <div ng-show="tab != 'welcome'" layout="row" layout-align="space-between start" class="wz-md-navbar-kbn">
         <div layout="column" layout-align="center start">
             <md-nav-bar class="padding-right-0 wz-md-navbar" md-selected-nav-item="tab" nav-bar-aria-label="navigation submenu">
                 <md-nav-item md-nav-click="switchTab('general');" name="general">General</md-nav-item>
@@ -15,6 +15,7 @@
                 <md-nav-item md-nav-click="switchTab('gdpr');" name="gdpr" ng-show="extensions.gdpr">GDPR</md-nav-item>
                 <md-nav-item md-nav-click="switchTab('aws');" name="aws" ng-show="extensions.aws">AWS</md-nav-item>
                 <md-nav-item md-nav-click="switchTab('virustotal');" name="virustotal" ng-show="extensions.virustotal">VirusTotal</md-nav-item>
+                <md-nav-item md-nav-click="switchTab('welcome');" name="welcome">Welcome</md-nav-item>
             </md-nav-bar>
         </div>
 
@@ -33,15 +34,15 @@
     <!-- <md-progress-linear class="md-accent" md-mode="indeterminate" ng-show="load"></md-progress-linear> -->
 
     <!-- View: Discover -->
-    <kbn-dis></kbn-dis>
+    <kbn-dis ng-show="tab != 'welcome'"></kbn-dis>
 
-    <div class="wazuh-loading" layout="column" layout-align="center center" ng-show="resultState === 'ready' && tabView === 'panels' && !rendered">
+    <div class="wazuh-loading" layout="column" layout-align="center center" ng-show="resultState === 'ready' && tabView === 'panels' && !rendered && tab != 'welcome'">
         <div class="percentage"><i class="fa fa-spinner fa-spin fa-fw" aria-hidden="true"></i></div>
         <div class="percentage">{{loadingStatus}}</div>
     </div>
 
     <!-- No results message -->
-    <md-content flex layout="row" layout-align="start start" ng-show="resultState !== 'ready' && tabView === 'panels'">
+    <md-content flex layout="row" layout-align="start start" ng-show="resultState !== 'ready' && tabView === 'panels' && tab != 'welcome'">
         <md-card flex layout="column" class="wz-md-card">
             <md-card-content class="wz-text-center">
                 No results for selected time interval
